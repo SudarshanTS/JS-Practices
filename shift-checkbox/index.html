@@ -1,0 +1,68 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shift-Hold-Check</title>
+    <link href="./index.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="cardContainer" id="cardContainer">
+
+    </div>
+</body>
+<script>
+    let firstId = null;
+    let lastId = null;
+    const arr =
+        [
+            {
+                id: 1,
+                name: 'This is an inbox layout.'
+            },
+            {
+                id: 2,
+                name: 'Check one item'
+            },
+            {
+                id: 3,
+                name: 'Hold down your Shift key'
+            },
+            {
+                id: 4,
+                name: 'Check a lower item'
+            },
+            {
+                id: 5,
+                name: 'Everything in between should also be set to checked'
+            },
+            {
+                id: 6,
+                name: 'Happy Hacking'
+            },
+        ];
+    const cardContainer = document.getElementById('cardContainer');
+    arr.forEach(item => {
+        cardContainer.innerHTML += `<div class="item">
+            <input type=checkbox id=${item.id} onclick=onClick(event)>
+            <p>${item.name}</p>
+            </div>
+`
+    });
+    const checkboxes = document.querySelectorAll(
+        '.item input[type="checkbox"]'
+    );
+    onClick = (event) => {
+        this.firstId = !this.firstId && event.target.id || this.firstId;
+        this.lastId = this.firstId && !this.lastId && event.shiftKey && event.target.id || null;
+        this.firstId && this.lastId && checkboxes.forEach(cb => {
+            console.log('cb: ', cb.id)
+            cb.checked = cb.id >= this.firstId && cb.id <= this.lastId;
+        });
+    }
+
+</script>
+
+</html>
